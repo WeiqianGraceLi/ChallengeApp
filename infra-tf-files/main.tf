@@ -41,3 +41,7 @@ module "alb" {
   vpcid = module.vpc.app_vpc_id
   health_check_path=var.health_check_path
 }
+
+module "ecs" {
+  source = "./ecs"
+}

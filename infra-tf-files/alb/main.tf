@@ -6,7 +6,7 @@ resource "aws_lb" "app_alb" {
   security_groups    = [var.app_security_group_id]
   subnets            = [var.subnet_1_id, var.subnet_2_id]
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 }
 
 # Assign target group to load balancer
