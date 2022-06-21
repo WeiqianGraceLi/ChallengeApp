@@ -21,52 +21,6 @@ resource "aws_iam_role" "tf_ecs_execution_role" {
   }
 }
 
-# resource "aws_iam_role" "tf_ecs_task_role" {
-#   name = "tf_ecs_task_role"
-
-#   assume_role_policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         Action = "sts:AssumeRole"
-#         Effect = "Allow"
-#         Sid    = ""
-#         Principal = {
-#           Service = "ecs-tasks.amazonaws.com"
-#         }
-#       },
-#     ]
-#   })
-
-#   tags = {
-#     tag-key = "tf_ecs_task_role"
-#   }
-# }
-
-# # Create iam policy for ecs task execution
-# resource "aws_iam_policy" "tf_ecs_execution_policy" {
-#   name = "tf_ecs_execution_policy"
-
-#   # Terraform's "jsonencode" function converts a
-#   # Terraform expression result to valid JSON syntax.
-#   policy = jsonencode({
-#     "Version": "2012-10-17",
-#     "Statement": [
-#         {
-#             "Effect": "Allow",
-#             "Action": [
-#                 "ecr:GetAuthorizationToken",
-#                 "ecr:BatchCheckLayerAvailability",
-#                 "ecr:GetDownloadUrlForLayer",
-#                 "ecr:BatchGetImage",
-#                 "logs:CreateLogStream",
-#                 "logs:PutLogEvents"
-#             ],
-#             "Resource": "*"
-#         }
-#     ]
-# })
-# }
 
 # Attach iam role with policy for ecs task execution
 resource "aws_iam_role_policy_attachment" "tf_ecs_execution_attach" {
@@ -128,7 +82,6 @@ resource "aws_ecs_service" "app_ecs_service" {
   cluster         = aws_ecs_cluster.tf_app_cluster.id
   task_definition = aws_ecs_task_definition.app_ecs_task.arn
   desired_count   = 1
-  //iam_role        = aws_iam_role.tf_ecs_task_role.arn
   launch_type     = "FARGATE"
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent = 200

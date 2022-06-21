@@ -1,12 +1,3 @@
-# terraform {
-#   backend "s3"{
-#         bucket = var.backend_s3_bucket_name
-#         key    = var.backend_s3_key
-#         region = "ap-southeast-2"
-
-#   }
-# }
-
 provider "aws" {
   profile                  = var.aws_profile
   shared_credentials_files = var.aws_credentials_path
@@ -40,6 +31,7 @@ module "alb" {
   subnet_2_id = module.vpc.subnet_2_id
   vpcid = module.vpc.app_vpc_id
   health_check_path=var.health_check_path
+  tf_app_cert_arn = module.acm.tf_app_cert_arn
 }
 
 module "ecs" {
@@ -55,3 +47,17 @@ module "ecs" {
   subnet_2_id = module.vpc.subnet_2_id
   app_security_group_id = module.security_group.app_security_group_id
 }
+
+module "route53" {
+  source = "./route53"
+  app_alb_zone_id = module.alb.app_alb_zone_id
+  app_alb_dns_name = module.alb.app_alb_dns_name
+  hosted_zone_domain_name = var.hosted_zone_domain_name
+  record_domain_name = var.record_domain_name
+}
+
+module "acm" {
+  source = "./acm"
+  hosted_zone_domain_name = var.hosted_zone_domain_name
+  record_domain_name = var.record_domain_name
+  }

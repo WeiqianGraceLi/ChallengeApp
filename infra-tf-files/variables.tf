@@ -41,6 +41,16 @@ variable "health_check_path" {
   default     = "/healthcheck/"
 }
 
+variable "hosted_zone_domain_name" {
+  description = "domain name of the hosted zone"
+  default     = "graceli99.com"
+}
+
+variable "record_domain_name" {
+  description = "domain name of record in route53"
+  default     = "servian.graceli99.com"
+}
+
 
 # # Uncommonet and modify the below variables if you need to enable remote backend
 

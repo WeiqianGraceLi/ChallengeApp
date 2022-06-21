@@ -7,8 +7,5 @@ db_password = "password"
 db_port = "5432"
 db_listen_host = "0.0.0.0"
 health_check_path = "/healthcheck/"
-
-
-# Uncommonet and modify the below variables if you need to enable remote backend
-# backend_s3_bucket_name = "servian_app_tf_backend"
-# backend_s3_key = "servian_app/terraform.tfstate"
+hosted_zone_domain_name = "graceli99.com" #This must be an existing public hosted zone
+record_domain_name = "servian.graceli99.com" 

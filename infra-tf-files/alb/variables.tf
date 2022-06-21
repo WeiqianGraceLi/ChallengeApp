@@ -15,3 +15,6 @@ variable "vpcid" {
 variable "health_check_path" {
   description = "path to validate the health of the application"
 }
+variable "tf_app_cert_arn" {
+    description = "arn of the SSL certification"
+}
