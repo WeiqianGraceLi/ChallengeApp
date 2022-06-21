@@ -26,6 +26,16 @@ variable "db_password" {
   default     = "password"
 }
 
+variable "db_port" {
+  description = "Port of RDS database instance"
+  default     = "5432"
+}
+
+variable "db_listen_host" {
+  description = "listen host of RDS database instance"
+  default     = "0.0.0.0"
+}
+
 variable "health_check_path" {
   description = "path to validate the health of the application"
   default     = "/healthcheck/"

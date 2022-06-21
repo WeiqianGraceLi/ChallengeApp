@@ -17,11 +17,6 @@ module "vpc" {
   source = "./vpc"
 }
 
-module "security_group" {
-  source = "./security_group"
-  vpcid = module.vpc.app_vpc_id
-}
-
 module "rds" {
   source = "./rds"
   db_name = var.db_name
@@ -31,6 +26,11 @@ module "rds" {
   subnet_2_id = module.vpc.subnet_2_id
   app_security_group_id = module.security_group.app_security_group_id
 
+}
+
+module "security_group" {
+  source = "./security_group"
+  vpcid = module.vpc.app_vpc_id
 }
 
 module "alb" {
@@ -44,4 +44,14 @@ module "alb" {
 
 module "ecs" {
   source = "./ecs"
+  db_endpoint = module.rds.db_endpoint
+  db_name = var.db_name
+  db_user = var.db_user
+  db_password = var.db_password
+  db_port = var.db_port
+  db_listen_host = var.db_listen_host
+  app_alb_target_group = module.alb.app_alb_target_group
+  subnet_1_id = module.vpc.subnet_1_id
+  subnet_2_id = module.vpc.subnet_2_id
+  app_security_group_id = module.security_group.app_security_group_id
 }

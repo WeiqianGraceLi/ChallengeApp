@@ -4,6 +4,8 @@ aws_credentials_path = ["~/.aws/credentials"]
 db_name = "postgres"
 db_user = "dbuser"
 db_password = "password"
+db_port = "5432"
+db_listen_host = "0.0.0.0"
 health_check_path = "/healthcheck/"
 
 
