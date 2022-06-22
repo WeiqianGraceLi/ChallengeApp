@@ -46,6 +46,7 @@ terraform destroy -auto-approve
 
 ## Architectural Overview
 
+View https://servian.graceli99.com/ for deployed website based on this solution
 - Used ECS to run dockerized application in a container, and host with fargate
 - Created record in Route53, so that website can be accessed via domain name
 - Used ACM to apply SSL certificate on website, to ensure security for online communications
